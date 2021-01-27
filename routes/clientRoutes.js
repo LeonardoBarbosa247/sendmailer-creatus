@@ -12,7 +12,7 @@ class ClientRoutes extends BaseRoutes
         return(
         {
             path: '/',
-            method: 'POST',
+            method: 'GET',
             handler: (request, headers) =>
             {
                 return {message: "Successfully"}
