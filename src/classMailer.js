@@ -59,6 +59,11 @@ class Mailer
         console.log(`Email from ${id} was open`);
         // return {message: 'sucessfully'};
     }
+
+    async list()
+    {
+        return this._db.list();
+    }
 }
 
 module.exports = Mailer;

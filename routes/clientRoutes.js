@@ -36,5 +36,17 @@ class ClientRoutes extends BaseRoutes
             }
         }
     }
+
+    list()
+    {
+        return{
+            path: '/',
+            method: 'GET',
+            handler: (request, headers) =>
+            {
+                return this._mailer.list();
+            }
+        }
+    }
 }
 module.exports = ClientRoutes;

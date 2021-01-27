@@ -51,6 +51,11 @@ class MongoDB
         return {message: "open"}
     }
 
+    async list()
+    {
+        return await this._collection.find();
+    }
+
     async create(item)
     {
         return this._collection.create(item);
