@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+const fs = require('fs');
 require('dotenv');
 
 class Mailer
@@ -30,12 +31,16 @@ class Mailer
         // }
         payload = await this._db.create(payload);
         // console.log(data);
+        let data = fs.readFileSync(`${__dirname}/../emails/presentation.html`, 'utf-8');
+        data = data.replace("</body>", `<img src = "http://localhost:3000/open/${payload.id}"></img> </body>`);
+
         this._transporter.sendMail(
             {
                 from: "Leonardo Barbosa <leonardorosa247@gmail.com>",
                 to: `${payload.name} <${payload.email}>`,
                 subject: "Conheça a CREATUS",
-                text: "Olá sou a Creatus"
+                // text: "Olá sou a Creatus"
+                html: data
             }
         ).then(data => 
         {
@@ -46,6 +51,13 @@ class Mailer
             console.log('error ', data);
             //this.notReceive(params.id);
         });
+    }
+
+    open(id)
+    {
+        this._db.open(id);
+        console.log(`Email from ${id} was open`);
+        // return {message: 'sucessfully'};
     }
 }
 

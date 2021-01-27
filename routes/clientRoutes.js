@@ -18,10 +18,23 @@ class ClientRoutes extends BaseRoutes
             handler: (request, headers) =>
             {
                 this._mailer.send(request.payload);
-                return {message: "Successfully"}
+                return {message: "Successfully"};
             }
         });
     }
     
+
+    open()
+    {
+        return{
+            path: '/open/{id}',
+            method: 'GET',
+            handler: (request, headers) =>
+            {
+                this._mailer.open(request.params.id);
+                return {message: `Email from id ${request.params.id} was open`};
+            }
+        }
+    }
 }
 module.exports = ClientRoutes;
