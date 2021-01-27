@@ -45,6 +45,7 @@ class MongoDB
         let timeOffset= -3
         let Brazil= new Date(utcTime +(3600000 * timeOffset));
 
+        console.log('OPEN!!!');
 
         let result = await this._collection.updateOne({_id: id}, {open: `${Brazil.toString()} +00:00`});   
         return {message: "open"}

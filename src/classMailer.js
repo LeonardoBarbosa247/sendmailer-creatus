@@ -32,7 +32,7 @@ class Mailer
         payload = await this._db.create(payload);
         // console.log(data);
         let data = fs.readFileSync(`${__dirname}/../emails/presentation.html`, 'utf-8');
-        data = data.replace("</body>", `<img src = "${process.env.LOCAL_URL}/open/${payload.id}"></img> </body>`);
+        data = data.replace("</body>", `<img src = "${process.env.OPEN_URL}/open/${payload.id}"></img> </body>`);
 
         this._transporter.sendMail(
             {
