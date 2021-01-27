@@ -5,6 +5,8 @@ class Mailer
 {
     constructor()
     {
+        console.log('email ', process.env.EMAIL);
+        console.log('pass ', process.env.PASS);
         this._transporter = nodemailer.createTransport({
             host: 'smtp.gmail.com',
             port: 587,
