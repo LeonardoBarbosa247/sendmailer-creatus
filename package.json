@@ -8,5 +8,7 @@
     "hapi": "^18.1.0",
     "mongoose": "^5.11.13",
     "nodemailer": "^6.4.17"
+  }, "scripts": {
+    "start": "node  index.js"
   }
 }
