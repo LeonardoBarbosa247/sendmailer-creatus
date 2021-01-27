@@ -9,6 +9,7 @@
     "mongoose": "^5.11.13",
     "nodemailer": "^6.4.17"
   }, "scripts": {
-    "start": "node  index.js"
+    "start": "node  index.js",
+    "dev": "nodemon node index.js"
   }
 }
