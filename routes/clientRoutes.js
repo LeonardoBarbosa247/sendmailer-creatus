@@ -1,12 +1,12 @@
 const BaseRoutes = require('./base/baseRoutes');
-const Mailer = require('./../src/classMailer');
+// const Mailer = require('./../src/classMailer');
 
 class ClientRoutes extends BaseRoutes
 {
-    constructor()
+    constructor(mailer)
     {
         super();
-        this._mailer = new Mailer();
+        this._mailer = mailer;
     }
 
     create()
@@ -14,10 +14,10 @@ class ClientRoutes extends BaseRoutes
         return(
         {
             path: '/',
-            method: 'GET',
+            method: 'POST',
             handler: (request, headers) =>
             {
-                this._mailer.send();
+                this._mailer.send(request.payload);
                 return {message: "Successfully"}
             }
         });

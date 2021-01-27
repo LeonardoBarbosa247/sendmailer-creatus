@@ -3,10 +3,12 @@ require('dotenv');
 
 class Mailer
 {
-    constructor()
+    constructor(db)
     {
-        console.log('email ', process.env.EMAIL);
-        console.log('pass ', process.env.PASS);
+        // console.log('email ', process.env.EMAIL);
+        // console.log('pass ', process.env.PASS);
+        this._db = db;
+
         this._transporter = nodemailer.createTransport({
             host: 'smtp.gmail.com',
             port: 587,
@@ -20,20 +22,25 @@ class Mailer
         });
     }
 
-    async send()
+    async send(payload)
     {
+        // let data = {
+        //     name: "Leonardo",
+        //     email: "leonardo.rosa99@edu.pucrs.br"
+        // }
+        payload = await this._db.create(payload);
+        // console.log(data);
         this._transporter.sendMail(
             {
-                from: "Leonardo Barbosa <leoanrdorosa247@gmail.com>",
-                to: 'Leonardo Barbosa <leonardo.rosa99@edu.pucrs.br>',
+                from: "Leonardo Barbosa <leonardorosa247@gmail.com>",
+                to: `${payload.name} <${payload.email}>`,
                 subject: "Conheça a CREATUS",
-                // html: data
                 text: "Olá sou a Creatus"
             }
         ).then(data => 
         {
-            console.log(`enviado para leonardo`)
-            //this.receive(params.id);
+            console.log(`Email enviado com sucesso para ${payload.name}`);
+            this._db.receive(payload.id);
         }).catch(data => 
         {
             console.log('error ', data);

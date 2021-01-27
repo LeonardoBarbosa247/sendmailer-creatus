@@ -1,5 +1,9 @@
 const Hapi = require('hapi');
 const ClientRoutes = require('./routes/clientRoutes')
+const MongoDB = require('./database/mongoDB');
+const clientSchema = require('./database/schemas/clientSchema');
+const Mailer = require('./src/classMailer');
+
 require('dotenv').config();
 
 const app = new Hapi.Server({
@@ -15,8 +19,12 @@ function mapRoutes(intance, methods)
 async function main()
 {
     
+    const connection = MongoDB.connect();
+    const mongoDB = new MongoDB(connection, clientSchema);
+    const mailer = new Mailer(mongoDB);
+
     app.route([
-        ...mapRoutes(new ClientRoutes(), ClientRoutes.methods())
+        ...mapRoutes(new ClientRoutes(mailer), ClientRoutes.methods())
     ])
 
     await app.start();
