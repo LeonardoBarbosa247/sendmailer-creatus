@@ -36,7 +36,7 @@ class Mailer
 
         this._transporter.sendMail(
             {
-                from: "Leonardo Barbosa <leonardorosa247@gmail.com>",
+                from: "Leonardo Barbosa <contato@creatus.net.br>",
                 to: `${payload.name} <${payload.email}>`,
                 subject: "Conheça a CREATUS",
                 // text: "Olá sou a Creatus"
