@@ -44,7 +44,8 @@ class ClientRoutes extends BaseRoutes
             method: 'GET',
             handler: (request, headers) =>
             {
-                return this._mailer.list();
+                //return request.query;
+                return this._mailer.list(request.query);
             }
         }
     }

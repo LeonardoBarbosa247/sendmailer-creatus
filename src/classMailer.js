@@ -60,9 +60,9 @@ class Mailer
         // return {message: 'sucessfully'};
     }
 
-    async list()
+    async list(query)
     {
-        return this._db.list();
+        return this._db.list(query);
     }
 }
 
