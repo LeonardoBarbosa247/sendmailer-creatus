@@ -1,5 +1,4 @@
 const BaseRoutes = require('./base/baseRoutes');
-// const Mailer = require('./../src/classMailer');
 
 class ClientRoutes extends BaseRoutes
 {
@@ -44,8 +43,20 @@ class ClientRoutes extends BaseRoutes
             method: 'GET',
             handler: (request, headers) =>
             {
-                //return request.query;
                 return this._mailer.list(request.query);
+            }
+        }
+    }
+
+    delete()
+    {
+        return{
+            path: '/',
+            method: 'DELETE',
+            handler: (request, headers) =>
+            {
+                // return request.payload;
+                return this._mailer.delete(request.payload);
             }
         }
     }

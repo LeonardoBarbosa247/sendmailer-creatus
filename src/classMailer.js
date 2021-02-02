@@ -6,10 +6,8 @@ class Mailer
 {
     constructor(db)
     {
-        // console.log('email ', process.env.EMAIL);
-        // console.log('pass ', process.env.PASS);
         this._db = db;
-
+        
         this._transporter = nodemailer.createTransport({
             host: 'smtp.gmail.com',
             port: 587,
@@ -25,21 +23,15 @@ class Mailer
 
     async send(payload)
     {
-        // let data = {
-        //     name: "Leonardo",
-        //     email: "leonardo.rosa99@edu.pucrs.br"
-        // }
         payload = await this._db.create(payload);
-        // console.log(data);
         let data = fs.readFileSync(`${__dirname}/../emails/index.html`, 'utf-8');
         data = data.replace("</body>", `<img src = "${process.env.OPEN_URL}/open/${payload.id}" style = "display: none;"></img> </body>`);
 
         this._transporter.sendMail(
             {
-                from: "Leonardo Barbosa <contato@creatus.net.br>",
+                from: "Creatus Development <contato@creatus.net.br>",
                 to: `${payload.name} <${payload.email}>`,
-                subject: "Conheça a CREATUS",
-                // text: "Olá sou a Creatus"
+                subject: `${payload.name}, conheça as soluções para seu empreendimento!`,
                 html: data
             }
         ).then(data => 
@@ -49,7 +41,6 @@ class Mailer
         }).catch(data => 
         {
             console.log('error ', data);
-            //this.notReceive(params.id);
         });
     }
 
@@ -57,12 +48,17 @@ class Mailer
     {
         this._db.open(id);
         console.log(`Email from ${id} was open`);
-        // return {message: 'sucessfully'};
     }
 
     async list(query)
     {
         return this._db.list(query);
+    }
+
+    async delete(query)
+    {
+        let result = await this._db.delete(query);
+        return {message: `Deleted ${result.n} occurrences`};
     }
 }
 
