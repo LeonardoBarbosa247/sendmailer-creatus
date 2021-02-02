@@ -1,3 +1,4 @@
+const { Query } = require('mongoose');
 const BaseRoutes = require('./base/baseRoutes');
 
 class ClientRoutes extends BaseRoutes
@@ -43,6 +44,7 @@ class ClientRoutes extends BaseRoutes
             method: 'GET',
             handler: (request, headers) =>
             {
+                if(request.query.open == "notnull") request.query.open = {$ne: null};
                 return this._mailer.list(request.query);
             }
         }
@@ -55,7 +57,6 @@ class ClientRoutes extends BaseRoutes
             method: 'DELETE',
             handler: (request, headers) =>
             {
-                // return request.payload;
                 return this._mailer.delete(request.payload);
             }
         }
