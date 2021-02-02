@@ -44,7 +44,9 @@ class ClientRoutes extends BaseRoutes
             method: 'GET',
             handler: (request, headers) =>
             {
-                if(request.query.open == "notnull") request.query.open = {$ne: null};
+                Object.getOwnPropertyNames(request.query).filter(method => {
+                    if(request.query[method] == "notnull") request.query[method] = {$ne: null};
+                });
                 return this._mailer.list(request.query);
             }
         }
